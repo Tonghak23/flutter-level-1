@@ -1,22 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/main.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class MyListViewBuilderPage extends StatefulWidget {
+  const MyListViewBuilderPage({Key? key}) : super(key: key);
   @override
-  _MainPageState createState() => _MainPageState();
+  _MyListViewBuilderPageState createState() => _MyListViewBuilderPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MyListViewBuilderPageState extends State<MyListViewBuilderPage> {
   // double _screenWidth;
   ScrollController _scroller = ScrollController();
+  var _scaffoldkey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     // _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+           key: _scaffoldkey,
            appBar: _buildAppBar,
-           body: _buildBodyListwithStack(),
+           body: _buildBody(),
+           drawer: _buildDrawer(),
            bottomNavigationBar: _buildNavigation(),
+    );
+  }
+  _buildDrawer() {
+    return Drawer(
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+              DrawerHeader(
+                // decoration: BoxDecoration(
+                //   gradient: LinearGradient(
+                //     begin: Alignment.topCenter,
+                //     end: Alignment.bottomCenter,
+                //     colors: [Colors.white70,Colors.blueAccent],
+                //   ),
+                // ),
+                child: Image.network("https://image.flaticon.com/icons/png/512/146/146031.png"),
+              ),
+              ListTile(
+               leading: Icon(Icons.account_circle_outlined,),
+               title: Text("Me",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
+               trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
+              ),
+              ListTile(
+              leading: Icon(Icons.computer_sharp,),
+              title: Text("Course",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
+              trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
+              ),
+              ListTile(
+                leading: Icon(Icons.home,),
+                title: Text("Home",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
+                trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
+              ),
+              ListTile(
+              leading: Icon(Icons.settings,color: Colors.redAccent,),
+              title: Text("Setting",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0,color: Colors.redAccent)),
+              trailing: Icon(Icons.navigate_next_sharp,color: Colors.redAccent,),
+              ),
+          ],
+        ),
     );
   }
   get _buildAppBar =>AppBar(
@@ -30,20 +72,36 @@ class _MainPageState extends State<MainPage> {
           ],
       ),
   );
-  get _buildBody {
-      return Container(
-          alignment: Alignment.center,
-          child: Row(
-               mainAxisAlignment: MainAxisAlignment.spaceAround,
-               crossAxisAlignment: CrossAxisAlignment.end,
-               children: [
-                 // _buildBox(Colors.indigo,h:200),
-                 _buildBox(Colors.blueGrey,h:150),
-                 _buildBox(Colors.redAccent,h: 150),
-        ],
-          ),
-      );
+  _buildBody() {
+    return Container(
+      child: _buildListview(),
+    );
   }
+  _buildListview() {
+    return ListView.builder(
+        itemCount: movielist.length,
+        itemBuilder: (context, index) {
+          return _buildItem(movielist[index]);
+        }
+    );
+  }
+  _buildItem(Movie item){
+      return _buildComplexBox(item.img, item.title, item.body);
+  }
+  // get _buildBody {
+  //     return Container(
+  //         alignment: Alignment.center,
+  //         child: Row(
+  //              mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //              crossAxisAlignment: CrossAxisAlignment.end,
+  //              children: [
+  //                // _buildBox(Colors.indigo,h:200),
+  //                _buildBox(Colors.blueGrey,h:150),
+  //                _buildBox(Colors.redAccent,h: 150),
+  //       ],
+  //         ),
+  //     );
+  // }
   _buildBox(Color color,{double w=200,double h=100}) =>Container(
       width: w,
       height:h,
@@ -83,7 +141,9 @@ class _MainPageState extends State<MainPage> {
                 IconButton(icon: Icon(Icons.play_circle_outline,size: 30.0,color: Colors.indigo,),onPressed: (){},),
                 IconButton(icon: Icon(Icons.replay_circle_filled,size: 30.0,color: Colors.indigo,),onPressed: (){},),
                 IconButton(icon: Icon(Icons.account_circle,size: 30.0,color: Colors.indigo,),onPressed: (){},),
-                IconButton(icon: Icon(Icons.menu,size:30.0,color: Colors.indigo,),onPressed: (){},),
+                IconButton(icon: Icon(Icons.menu,size:30.0,color: Colors.indigo,),onPressed: (){
+                  _scaffoldkey.currentState!.openDrawer();
+                },),
             ],
           ),
       );
@@ -275,4 +335,13 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+class Movie{
+  late String img,title,body;
+  Movie({required this.img,required this.title,required this.body});
+}
+List<Movie> movielist = [
+  Movie(img: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/f9-1624892833.jpeg", title: "The Fast and the Furious 9", body: "F9 was originally scheduled for a worldwide release by Universal Pictures on April 19, 2019"),
+  Movie(img: "https://cdn.vox-cdn.com/thumbor/a2AN1xzuEq34sE9HIlJSOxU1hHM=/0x0:1100x691/1200x800/filters:focal(462x258:638x434)/cdn.vox-cdn.com/uploads/chorus_image/image/68509391/Avatar.0.png", title: "Avartar 2009",body: "Avatar is a 2009 American epic science fiction film directed, written, produced"),
+  Movie(img: "https://pics.filmaffinity.com/Jumanji_Welcome_to_the_Jungle-105552152-large.jpg", title: "Jumanjii",body: "Jumanji is a 1995 American fantasy adventure film directed by Joe Johnston. It is loosely based on the 1981"),
+];
 
