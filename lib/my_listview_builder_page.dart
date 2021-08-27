@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/detail_page.dart';
 import 'package:flutter_application/main.dart';
 
 class MyListViewBuilderPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class _MyListViewBuilderPageState extends State<MyListViewBuilderPage> {
   // double _screenWidth;
   ScrollController _scroller = ScrollController();
   var _scaffoldkey = GlobalKey<ScaffoldState>();
+  String profile = "https://static.wixstatic.com/media/902040_30336145aa8b40d8b6e898e3e107f92c~mv2.png/v1/fill/w_300,h_302,al_c,q_85,usm_0.66_1.00_0.01/User%2005c.webp";
   @override
   Widget build(BuildContext context) {
     // _screenWidth = MediaQuery.of(context).size.width;
@@ -35,34 +37,44 @@ class _MyListViewBuilderPageState extends State<MyListViewBuilderPage> {
                 //     colors: [Colors.white70,Colors.blueAccent],
                 //   ),
                 // ),
-                child: Image.network("https://image.flaticon.com/icons/png/512/146/146031.png"),
+                child: Image.network(profile),
               ),
               ListTile(
-               leading: Icon(Icons.account_circle_outlined,),
+              leading: Icon(Icons.home,color: Colors.blueGrey[900]),
+              title: Text("Home",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
+              trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
+              ),
+              ListTile(
+               leading: Icon(Icons.account_circle_outlined,color: Colors.blueGrey[900]),
                title: Text("Me",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
                trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
               ),
               ListTile(
-              leading: Icon(Icons.computer_sharp,),
+              leading: Icon(Icons.computer_sharp,color: Colors.blueGrey[900]),
               title: Text("Course",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
               trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
               ),
               ListTile(
-                leading: Icon(Icons.home,),
-                title: Text("Home",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
-                trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
+              leading: Icon(Icons.location_history,color: Colors.blueGrey[900]),
+              title: Text("Location",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
+              trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
               ),
               ListTile(
-              leading: Icon(Icons.settings,color: Colors.redAccent,),
-              title: Text("Setting",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0,color: Colors.redAccent)),
-              trailing: Icon(Icons.navigate_next_sharp,color: Colors.redAccent,),
+              leading: Icon(Icons.settings,color: Colors.blueGrey[900],),
+              title: Text("Setting",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0)),
+              trailing: Icon(Icons.navigate_next_sharp,color: Colors.indigoAccent,),
               ),
+              ListTile(
+              leading: Icon(Icons.logout,color: Colors.redAccent,),
+              title: Text("Logout",style: TextStyle(fontFamily: 'VarelaRound-Regular',fontSize: 20.0,color: Colors.redAccent)),
+              trailing: Icon(Icons.navigate_next_sharp,color: Colors.redAccent,),
+            ),
           ],
         ),
     );
   }
   get _buildAppBar =>AppBar(
-      backgroundColor: Colors.indigo,
+      backgroundColor: Colors.blueGrey[800],
       title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -86,7 +98,12 @@ class _MyListViewBuilderPageState extends State<MyListViewBuilderPage> {
     );
   }
   _buildItem(Movie item){
-      return _buildComplexBox(item.img, item.title, item.body);
+      return InkWell(
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailPage(movie: item,)));
+          },
+          child: _buildComplexBox(item.img, item.title, item.body),
+      );
   }
   // get _buildBody {
   //     return Container(
@@ -342,6 +359,6 @@ class Movie{
 List<Movie> movielist = [
   Movie(img: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/f9-1624892833.jpeg", title: "The Fast and the Furious 9", body: "F9 was originally scheduled for a worldwide release by Universal Pictures on April 19, 2019"),
   Movie(img: "https://cdn.vox-cdn.com/thumbor/a2AN1xzuEq34sE9HIlJSOxU1hHM=/0x0:1100x691/1200x800/filters:focal(462x258:638x434)/cdn.vox-cdn.com/uploads/chorus_image/image/68509391/Avatar.0.png", title: "Avartar 2009",body: "Avatar is a 2009 American epic science fiction film directed, written, produced"),
-  Movie(img: "https://pics.filmaffinity.com/Jumanji_Welcome_to_the_Jungle-105552152-large.jpg", title: "Jumanjii",body: "Jumanji is a 1995 American fantasy adventure film directed by Joe Johnston. It is loosely based on the 1981"),
+  Movie(img: "https://www.scifipulse.net/wp-content/uploads/2019/12/Jumanji-Next-Level.jpeg", title: "Jumanjii",body: "Jumanji is a 1995 American fantasy adventure film directed by Joe Johnston. It is loosely based on the 1981"),
 ];
 
