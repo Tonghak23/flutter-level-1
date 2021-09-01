@@ -47,8 +47,8 @@ class _DetailPageState extends State<DetailPage> {
           IconButton(icon: Icon(Icons.replay_circle_filled,size: 30.0,color: Colors.indigo,),onPressed: (){},),
           IconButton(icon: Icon(Icons.account_circle,size: 30.0,color: Colors.indigo,),onPressed: (){},),
           IconButton(icon: Icon(Icons.menu,size:30.0,color: Colors.indigo,),onPressed: (){
-
-          },),
+          },
+          ),
         ],
       ),
     );

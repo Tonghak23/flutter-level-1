@@ -113,7 +113,7 @@ class _MainPageState extends State<MainPage> {
         child: Icon(Icons.arrow_circle_up,color: Colors.white,),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.indigoAccent,
+          color: Colors.redAccent[400],
         ),
       ),
     );

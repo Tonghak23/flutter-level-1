@@ -94,8 +94,8 @@ class _BannerPageState extends State<BannerPage> {
                             RaisedButton(
                                 child: Row(
                                   children: [
-                                    Icon(Icons.play_arrow),
-                                    Text("Play",style: TextStyle(fontFamily: 'VarelaRound-Regular'),),
+                                    Icon(Icons.play_arrow,color: Colors.white,),
+                                    Text("Play",style: TextStyle(fontFamily: 'VarelaRound-Regular',color: Colors.white),),
                                   ],
                                 ),
                                 onPressed: (){}
@@ -134,16 +134,16 @@ class _BannerPageState extends State<BannerPage> {
           Stack(
             alignment: Alignment.center,
             children: [
-              Positioned(
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 90,height: 25,
-                  decoration: BoxDecoration(color: Colors.blueAccent,borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Text("See more..",style: TextStyle(color: Colors.white,fontFamily: 'VarelaRound-Regular'),),
-                ),
-                right: 1,bottom: 5,
-              ),
+              // Positioned(
+              //   child: Container(
+              //     alignment: Alignment.center,
+              //     width: 90,height: 25,
+              //     decoration: BoxDecoration(color: Colors.blueAccent,borderRadius: BorderRadius.circular(8.0),
+              //     ),
+              //     child: Text("See more..",style: TextStyle(color: Colors.white,fontFamily: 'VarelaRound-Regular'),),
+              //   ),
+              //   right: 1,bottom: 5,
+              // ),
               Positioned(
                 child: Container(
                   alignment: Alignment.center,
@@ -152,7 +152,7 @@ class _BannerPageState extends State<BannerPage> {
                   decoration: BoxDecoration(color: Colors.redAccent,borderRadius: BorderRadius.circular(8.0)),
                   child: Text("Coming Soon",style: TextStyle(color: Colors.white,fontFamily: 'VarelaRound-Regular'),),
                 ),
-                right: 100,
+                right: 2,
                 bottom: 5,
               ),
               Column(
